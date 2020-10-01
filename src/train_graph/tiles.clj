@@ -81,7 +81,6 @@
 (defn west-link? [links other-links]
   (and (some #(= :w %) (flatten links))
        (some #(= :e %) (flatten other-links))))
-
 (defn east-link? [links other-links]
   (west-link? other-links links))
 

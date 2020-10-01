@@ -21,6 +21,18 @@
 (defn track->graph [track]
   track)
 
+(defn match-tile [row col connection tile]
+  (and (= row (:row tile))
+       (= col (:col tile))
+       (some #(= connection %) (flatten (:links tile)))))
+
+(defn find-tile [row col connection track]
+  (first (filter #(match-tile row col connection %) track)))
+
+(defn connections [tile track]
+  (let [{:keys [row col links id]} tile]
+    ))
+
 (defn render [track]
   (let [e (first (filter #(= "e" (:id %)) track))
         c (first (filter #(= "c" (:id %)) track))
@@ -28,5 +40,5 @@
         h (first (filter #(= "h" (:id %)) track))]
     (q/text-size 20)
     (q/fill 0 0 0)
-    (q/text (str (connected-neighbor? c e)) 0 550)))
+    (q/text (str (find-tile 0 0 :e track)) 0 550)))
 
