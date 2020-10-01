@@ -33,26 +33,31 @@
         (update-in [0 1] + offset)
         (update-in [1 1] + offset))))
 
-(defn hex [tile]
-  (let [{:keys [row col]} tile]
-    (->> hex-lines
-         (map #(update-x % row col))
-         (map #(update-y % row)))))
-
+(defn hex [row col]
+  (->> hex-lines
+       (map #(update-x % row col))
+       (map #(update-y % row))))
 
 (defn link-points [link]
   (let [start (first link)
         end (second link)]
     (vector (get link-positions start)
-            hex-center
-            (get link-positions end)
-            hex-center)))
+            (get link-positions end))))
 
-(defn render-link [row col link]
-  )
+(defn link-line [row col link]
+  (let [line (link-points link)]
+    (-> line
+        (update-x row col)
+        (update-y row))))
+
 
 (defn render-tile [tile]
-  (doall (map #(apply q/line %) (hex tile))))
+  (let [{:keys [row col links]} tile
+        link-lines (map #(link-line row col %) links)]
+    (q/stroke 0 0 0)
+    (doall (map #(apply q/line %) (hex row col)))
+    (q/stroke 255 0 0)
+    (doall (map #(apply q/line %) link-lines))))
 
 (defn render [track]
   (q/background 255 255 255)
