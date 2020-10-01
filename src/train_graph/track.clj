@@ -71,4 +71,3 @@
   (q/stroke-weight 5)
   (q/stroke 0 0 0)
   (doall (map render-tile track)))
-

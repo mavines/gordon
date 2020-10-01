@@ -1,7 +1,7 @@
 (ns train-graph.tiles)
 
 (defn abs [n]
-  (if (< n 0) 
+  (if (< n 0)
     (* -1 n)
     n))
 
@@ -63,12 +63,12 @@
         col-diff (- other-col col)]
     (cond
       (= 0 row-diff) (= 1 (abs col-diff))
-      (and (even? row) 
+      (and (even? row)
            (= 1 (abs row-diff))) (or (= 0 col-diff)
                                      (= -1 col-diff))
       (and (odd? row)
            (= 1 (abs row-diff))) (or (= 0 col-diff)
-                                     (= 1 col-diff))))) 
+                                     (= 1 col-diff)))))
 
 (defn north-west-link? [links other-links]
   (and (some #(= :nw %) (flatten links))
@@ -81,6 +81,7 @@
 (defn west-link? [links other-links]
   (and (some #(= :w %) (flatten links))
        (some #(= :e %) (flatten other-links))))
+
 (defn east-link? [links other-links]
   (west-link? other-links links))
 
@@ -89,3 +90,31 @@
 
 (defn south-east-link? [links other-links]
   (north-west-link? other-links links))
+
+(defn connected-sides [tile incoming]
+  (let [links (:links tile)]
+    (->> (filter #(some #{incoming} %) links)
+         (flatten)
+         (filter #(not= incoming %)))))
+
+(defn find-next-link-sides [tile other-tile]
+  (let [links (:links tile)
+        other-links (:links other-tile)]
+    (cond
+      (north-west? tile other-tile) (connected-sides other-tile :se)
+      (north-east? tile other-tile) (connected-sides other-tile :sw)
+      (west? tile other-tile) (connected-sides other-tile :e)
+      (east? tile other-tile) (connected-sides other-tile :w)
+      (south-west? tile other-tile) (connected-sides other-tile :ne)
+      (south-east? tile other-tile) (connected-sides other-tile :nw)
+      :else false)))
+
+(defn in-direction? [tile direction other-tile]
+  (condp = direction
+    :e (east? tile other-tile)
+    :w (west? tile other-tile)
+    :nw (north-west? tile other-tile)
+    :ne (north-east? tile other-tile)
+    :sw (south-west? tile other-tile)
+    :se (south-east? tile other-tile)
+    :else false))
