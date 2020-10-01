@@ -51,7 +51,7 @@
   :setup setup
   ; update-state is called on each iteration before draw-state.
   ;:update update-state
-  :draw track/render
+  :draw render
   :features [:keep-on-top]
   ; This sketch uses functional-mode middleware.
   ; Check quil wiki for more info about middlewares and particularly

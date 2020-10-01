@@ -71,16 +71,16 @@
                                      (= 1 col-diff))))) 
 
 (defn north-west-link? [links other-links]
-  (and (some #(= 0 %) (flatten links))
-       (some #(= 5 %) (flatten other-links))))
+  (and (some #(= :nw %) (flatten links))
+       (some #(= :se %) (flatten other-links))))
 
 (defn north-east-link? [links other-links]
-  (and (some #(= 2 %) (flatten links))
-       (some #(= 3 %) (flatten other-links))))
+  (and (some #(= :ne %) (flatten links))
+       (some #(= :sw %) (flatten other-links))))
 
 (defn west-link? [links other-links]
-  (and (some #(= 1 %) (flatten links))
-       (some #(= 4 %) (flatten other-links))))
+  (and (some #(= :w %) (flatten links))
+       (some #(= :e %) (flatten other-links))))
 
 (defn east-link? [links other-links]
   (west-link? other-links links))

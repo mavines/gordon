@@ -50,6 +50,10 @@
         (update-x row col)
         (update-y row))))
 
+(defn tile-label [row col]
+  (-> [hex-center [200 200]]
+      (update-x row col)
+      (update-y row)))
 
 (defn render-tile [tile]
   (let [{:keys [row col links]} tile
@@ -57,7 +61,10 @@
     (q/stroke 0 0 0)
     (doall (map #(apply q/line %) (hex row col)))
     (q/stroke 255 0 0)
-    (doall (map #(apply q/line %) link-lines))))
+    (doall (map #(apply q/line %) link-lines))
+    (q/text-size 20)
+    (q/fill 0 0 0)
+    (apply q/text (:id tile) (flatten (tile-label row col)))))
 
 (defn render [track]
   (q/background 255 255 255)
