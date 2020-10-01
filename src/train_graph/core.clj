@@ -8,23 +8,23 @@
                     :links [[0 5]]}])
 
 (def double-loop-track [{:id "a" :row 0 :col 0
-                         :links [[5 4]]}
+                         :links [[:se :e]]}
                         {:id "b" :row 0 :col 1
-                         :links [[1 4]]}
+                         :links [[:w :e]]}
                         {:id "c" :row 0 :col 2
-                         :links [[1 5] [1 3]]}
+                         :links [[:w :se] [:w :sw]]}
                         {:id "d" :row 1 :col 0
-                         :links [[0 5]]}
+                         :links [[:nw :se]]}
                         {:id "e" :row 1 :col 1
-                         :links [[2 3]]}
+                         :links [[:ne :sw]]}
                         {:id "f" :row 1 :col 2
-                         :links [[0 3]]}
+                         :links [[:nw :sw]]}
                         {:id "g" :row 2 :col 0
                          :links []}
                         {:id "h" :row 2 :col 1
-                         :links [[0 4] [0 2]]}
+                         :links [[:nw :e] [:nw :ne]]}
                         {:id "i" :row 2 :col 2
-                         :links [[1 2]]}])
+                         :links [[:w :ne]]}])
 
 (defn render [track]
   (track/render track)
@@ -51,7 +51,7 @@
   :setup setup
   ; update-state is called on each iteration before draw-state.
   ;:update update-state
-  :draw render
+  :draw track/render
   :features [:keep-on-top]
   ; This sketch uses functional-mode middleware.
   ; Check quil wiki for more info about middlewares and particularly
