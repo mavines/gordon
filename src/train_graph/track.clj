@@ -11,12 +11,12 @@
 (def hex-width 175)
 (def hex-height 150)
 (def hex-center [87 100])
-(def link-positions {:nw [40 20]
+(def link-positions {:nw [40 25]
                      :w [0 100]
-                     :ne [135 20]
-                     :sw [40 180]
+                     :ne [130 25]
+                     :sw [40 175]
                      :e [175 100]
-                     :se [135 180]})
+                     :se [130 175]})
 
 (defn update-x [line row col]
   (let [half-offset (if (odd? row)
