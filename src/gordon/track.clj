@@ -1,4 +1,4 @@
-(ns train-graph.track
+(ns gordon.track
   (:require [quil.core :as q]))
 
 (def hex-lines [[[87 0] [174 50]]

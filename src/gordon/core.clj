@@ -1,13 +1,13 @@
-(ns train-graph.core
+(ns gordon.core
   (:require [quil.core :as q]
             [quil.middleware :as m]
             [ubergraph.core :as uber]
             [ubergraph.alg :as alg]
             [loom.io :as io]
             [loom.alg :as lalg]
-            [train-graph.data :as data]
-            [train-graph.track :as track]
-            [train-graph.graph :as graph]))
+            [gordon.data :as data]
+            [gordon.track :as track]
+            [gordon.graph :as graph]))
 
 
 (defn- render [*track width height]
@@ -20,8 +20,8 @@
 (defn- update-state [state *track]
   *track)
 
-(defn draw-tracks [*track width height]
-  (q/defsketch train-graph
+(defn draw-track [*track width height]
+  (q/defsketch gordon
     :title "Train Tracks"
     :size [width height]
     :setup #(setup *track)

@@ -1,8 +1,8 @@
-(ns train-graph.graph
+(ns gordon.graph
   (:require [quil.core :as q]
             [ubergraph.core :as uber]
-            [train-graph.data :as data]
-            [train-graph.tiles :as tiles]
+            [gordon.data :as data]
+            [gordon.tiles :as tiles]
             [clojure.pprint :refer [pprint]]))
 
 (defn neighbors [track tile]

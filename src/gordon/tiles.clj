@@ -1,4 +1,4 @@
-(ns train-graph.tiles)
+(ns gordon.tiles)
 
 (defn abs [n]
   (if (< n 0)

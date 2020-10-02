@@ -1,4 +1,4 @@
-(ns train-graph.data)
+(ns gordon.data)
 
 (def single-track
   [{:id "a" :row 0 :col 0
