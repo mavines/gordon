@@ -4,6 +4,7 @@
             [train-graph.data :as data]
             [train-graph.tiles :as tiles]
             [clojure.pprint :refer [pprint]]))
+
 (def graph1
   (uber/digraph [:a :b] [:a :c] [:b :d] [:b :d]))
 (uber/pprint graph1)
@@ -41,15 +42,15 @@
 (defn make-second-nodes [kv]
   (let [n1 (key kv)
         others (val kv)]
-    (map #(str n1 %) others)))
+    (map #(keyword (str n1 %)) others)))
 
 (defn make-first-node [node neighbor]
   (str node neighbor))
 
 (defn make-all-nodes [node two-steps]
-  (let [first-node (str node (-> two-steps key))
+  (let [first-node (keyword (str node (-> two-steps key)))
         second-nodes (make-second-nodes two-steps)]
-    (map #(list first-node %) second-nodes)))
+    (map #(vec [first-node %]) second-nodes)))
 
 (defn tile->string [tile]
   (:id tile))
@@ -65,6 +66,7 @@
          (mapcat #(list % (connected-second-neighbors track tile %))
                  connected-neighbors)))
 
+
 (defn tile->nodes [track tile]
   (when-let [connected (not-empty (connected-neighbors track tile))]
     (let [two-steps (make-two-steps track tile connected)
@@ -73,20 +75,5 @@
       (mapcat #(make-all-nodes tile-string %) two-steps-strings))))
 
 (defn track->graph [track]
-  (remove nil? (mapcat #(tile->nodes track %) track)))
-
-(pprint (track->graph data/double-loop-track))
-
-(defn render [track]
-  (let [e (first (filter #(= "e" (:id %)) track))
-        c (first (filter #(= "c" (:id %)) track))
-        b (first (filter #(= "b" (:id %)) track))
-        h (first (filter #(= "h" (:id %)) track))]
-    (q/text-size 20)
-    (q/fill 0 0 0)
-    ;(q/text (str (find-tile 0 0 :e track)) 0 550)
-    (q/text (str "B - C: " (connected-neighbor? b c)) 0 550)
-    (q/text (str "E - B: " (connected-neighbor? e b)) 0 570)))
-
-(defn track->graph [track]
-  track)
+  (let [node-pairs (remove nil? (mapcat #(tile->nodes track %) track))]
+    (apply uber/digraph node-pairs)))
