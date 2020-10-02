@@ -20,15 +20,15 @@
 
 (defn update-x [line row col]
   (let [half-offset (if (odd? row)
-                      (/ col-width 2)
+                      (/ base-col-width 2)
                       0)
-        offset (* col col-width)]
+        offset (* col base-col-width)]
     (-> line
         (update-in [0 0] + offset half-offset)
         (update-in [1 0] + offset half-offset))))
 
 (defn update-y [line row]
-  (let [offset (* row row-height)]
+  (let [offset (* row base-row-height)]
     (-> line
         (update-in [0 1] + offset)
         (update-in [1 1] + offset))))
@@ -95,7 +95,5 @@
         row-height (/ height rows)
         width-sf (double (/ col-width base-col-width))
         height-sf (double (/ row-height base-row-height))]
-    #_(println "WIDTH: " width-sf)
-    #_(println "HEIGHT: " height-sf)
     (doseq [tile track]
       (render-tile tile width-sf height-sf))))

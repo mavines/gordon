@@ -5,10 +5,6 @@
             [train-graph.tiles :as tiles]
             [clojure.pprint :refer [pprint]]))
 
-(def graph1
-  (uber/digraph [:a :b] [:a :c] [:b :d] [:b :d]))
-(uber/pprint graph1)
-
 (defn neighbors [track tile]
   (->> track
        (filter #(tiles/neighbor? tile %))

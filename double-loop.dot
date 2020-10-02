@@ -1,0 +1,40 @@
+digraph "graph" {
+  ":cb" -> ":ba" ["label"="1"]
+  ":dh" -> ":hi" ["label"="1"]
+  ":dh" -> ":he" ["label"="1"]
+  ":ce" -> ":eh" ["label"="1"]
+  ":fi" -> ":ih" ["label"="1"]
+  ":ba" -> ":ad" ["label"="1"]
+  ":if" -> ":fc" ["label"="1"]
+  ":bc" -> ":cf" ["label"="1"]
+  ":bc" -> ":ce" ["label"="1"]
+  ":ec" -> ":cb" ["label"="1"]
+  ":eh" -> ":hd" ["label"="1"]
+  ":ih" -> ":hd" ["label"="1"]
+  ":cf" -> ":fi" ["label"="1"]
+  ":he" -> ":ec" ["label"="1"]
+  ":da" -> ":ab" ["label"="1"]
+  ":ab" -> ":bc" ["label"="1"]
+  ":ad" -> ":dh" ["label"="1"]
+  ":hi" -> ":if" ["label"="1"]
+  ":fc" -> ":cb" ["label"="1"]
+  ":hd" -> ":da" ["label"="1"]
+  ":cb"
+  ":dh"
+  ":ce"
+  ":fi"
+  ":ba"
+  ":if"
+  ":bc"
+  ":ec"
+  ":eh"
+  ":ih"
+  ":cf"
+  ":he"
+  ":da"
+  ":ab"
+  ":ad"
+  ":hi"
+  ":fc"
+  ":hd"
+}

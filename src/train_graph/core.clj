@@ -10,43 +10,38 @@
             [train-graph.graph :as graph]))
 
 
-(defn render [track width height]
-  (track/render track width height))
+(defn- render [*track width height]
+  (track/render @*track width height))
 
-(defn setup []
-  ; Set frame rate to 30 frames per second.
+(defn- setup [*track]
   (q/frame-rate 30)
-  ; setup function returns initial state. It contains
-  ; circle color and position.
-  data/stuck-track)
+  *track)
 
-(defn update-state [state]
-  ; Update sketch state by changing circle color and position.
-  data/stuck-track)
+(defn- update-state [state *track]
+  *track)
 
+(defn draw-tracks [*track width height]
+  (q/defsketch train-graph
+    :title "Train Tracks"
+    :size [width height]
+    :setup #(setup *track)
+    :update #(update-state % *track)
+    :draw #(render % width height)
+    :features [:keep-on-top]
+    :middleware [m/fun-mode]))
 
-(q/defsketch train-graph
-  :title "Train Tracks"
-  :size [1000 800]
-  ; setup function called only once, during sketch initialization.
-  :setup setup
-  ; update-state is called on each iteration before draw-state.
-  :update update-state
-  :draw #(render % 1000 800)
-  :features [:keep-on-top]
-  ; This sketch uses functional-mode middleware.
-  ; Check quil wiki for more info about middlewares and particularly
-  ; fun-mode.
-  :middleware [m/fun-mode])
+(defn track->graph [track]
+  (graph/track->graph track))
 
-(def stuck (graph/track->graph data/stuck-track))
-(def loop (graph/track->graph data/double-loop-track))
+(defn graph->dot [graph filename]
+  (io/dot graph filename))
 
-(uber/pprint loop)
-(alg/pprint-path (alg/shortest-path loop {:start-node :hd
-                                           :end-node :eh}))
-(alg/strongly-connected? loop)
-(alg/connected? loop)
-(lalg/scc loop)
-(lalg/scc stuck)
-(io/dot stuck "stuck-train.dot")
+(defn track->dot [track filename]
+  (-> (track->graph track)
+      (graph->dot filename)))
+
+(defn viz-track
+  ([track] (viz-track track {}))
+  ([track opts]
+   (-> (track->graph track)
+       (uber/viz-graph opts))))
