@@ -1,4 +1,6 @@
-# gordon
+# Gordon
+    [gordon "0.1.0"]
+
 A Clojure library/utility for analyzing the correctness of wooden train track configurations. Often (when you let a child build) the track is designed such that trains cannot reach all points of the track or cannot change directions. The goal of Gordan is to analyze your track for optimal fun.  
 Future improvements include: Usage analysis (are trains running into each other too much?), Simulation (watch your train drive around), and automatic track generation using image recognition.
 
@@ -19,13 +21,19 @@ Edit ```new-track``` and then run ```(reset! *new-track newtrack)``` and your ch
 
 ### Track Analysis
 Once you're happy with you've built you track, turn it into an [Ubergraph](https://github.com/Engelberg/ubergraph):
-```(def my-graph (track->graph my-track)```  
+``` clojure 
+(def my-graph (track->graph my-track)
+```  
 Some things you can learn:  
 Can you change directions?  
-```(uber/connected? my-graph)```
+``` clojure
+(uber/connected? my-graph)
+```
 
 Can you get everywhere?  
-```(uber/scc my-graph```
+``` clojure
+(uber/scc my-graph
+```
 Look for having a single component. Multiple components indicates you can get stuck in one direction.
 
 Explore [Ubergraph](https://github.com/Engelberg/ubergraph)/[Loom](https://github.com/aysylu/loom) algorithms for other interesting properties (what does shortest path tell you about your track?).
@@ -33,10 +41,14 @@ Explore [Ubergraph](https://github.com/Engelberg/ubergraph)/[Loom](https://githu
 ### Visualize
 Since Gordon is built on [Ubergraph](https://github.com/Engelberg/ubergraph) (which is built on Loom), we can export to [GraphViz](https://graphviz.org/).
 Draw using [GraphViz](https://graphviz.org/) (must be installed):
-```(viz-track my-track)```
+``` clojure
+(viz-track my-track)
+```
 
 Export the [GraphViz](https://graphviz.org/) ".dot" file:  
-```(track->dot my-track "my-track.dot")```
+``` clojure
+(track->dot my-track "my-track.dot")
+```
 
 
 ## License
