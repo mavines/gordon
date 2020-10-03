@@ -8,8 +8,8 @@ Built using [Ubergraph](https://github.com/Engelberg/ubergraph), [Loom](https://
 
 ## Usage
 ### Buliding a track
-Clone and fire up ```lein repl```.
-To view a track: ```(draw-track (atom data/double-loop) 500 500)```
+Clone and fire up ```lein repl```  
+To view a track: ```(draw-track (atom data/double-loop) 500 500)```  
 If you are building a track and want to easily reload it while working on it:  
 ``` clojure
 (def new-track []
