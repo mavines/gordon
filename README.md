@@ -56,6 +56,8 @@ Here is the output for a track with an outer loop and a cross section. If you ar
 | Real Track | Drawn Track | Graph |
 :-----------:|:-----------:|:-----:
 |![](examples/stuck-real.png)|![](examples/stuck-train-tracks.png)|![](examples/stuck-train-graph.png)|
+|![](examples/double-loop-real.png)|![](examples/double-loop-tracks.png)|![](examples/double-loop-graph.png)|
+|![](examples/figure-eight-real.png)|![](examples/figure-eight.png)|![](examples/figure-eight-graph.png)|
 
 ## License
 
