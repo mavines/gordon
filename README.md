@@ -50,6 +50,12 @@ Export the [GraphViz](https://graphviz.org/) ".dot" file:
 (track->dot my-track "my-track.dot")
 ```
 
+## Example
+Here is the output for a track with an outer loop and a cross section. If you are going clockwise on the outer loop, you cannot get to the cross section. If you are going clockwise on the outer loop, taking the cross section changes you to clockwise and you cannot take the cross section a second time. The graph of this track is connected, but not strongly connected (scc will return multiple components). Looking at the [GraphViz](https://graphviz.org/) visualization, you can see that the graph gets stuck at ```:cf``` and ```:hd```.
+
+<img src="examples/stuck-train-tracks.png" alt="Stuck Train Track" title="Stuck Train Track" align="left" width="250"/>
+<img src="examples/stuck-train-graph.png" alt="Stuck Train Graph" title="Stuck Train Graph" align="center" width="250"/>  
+
 
 ## License
 
