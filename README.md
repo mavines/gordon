@@ -12,7 +12,7 @@ Clone and fire up ```lein repl```
 To view a track: ```(draw-track (atom data/double-loop) 500 500)```  
 If you are building a track and want to easily reload it while working on it:  
 ``` clojure
-(def new-track []
+(def new-track [])
 (def *new-track (atom new-track))
 (draw-track *new-track 500 500)
 ```
