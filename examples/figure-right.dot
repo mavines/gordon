@@ -1,0 +1,56 @@
+digraph "graph" {
+  ":gh" -> ":he" ["label"="1"]
+  ":dg" -> ":gh" ["label"="1"]
+  ":fn" -> ":nm" ["label"="1"]
+  ":kj" -> ":jf" ["label"="1"]
+  ":be" -> ":ef" ["label"="1"]
+  ":ba" -> ":ad" ["label"="1"]
+  ":kl" -> ":lm" ["label"="1"]
+  ":hg" -> ":gd" ["label"="1"]
+  ":jf" -> ":fe" ["label"="1"]
+  ":lk" -> ":kj" ["label"="1"]
+  ":nm" -> ":ml" ["label"="1"]
+  ":fj" -> ":jk" ["label"="1"]
+  ":lm" -> ":mn" ["label"="1"]
+  ":eh" -> ":hg" ["label"="1"]
+  ":ml" -> ":lk" ["label"="1"]
+  ":gd" -> ":da" ["label"="1"]
+  ":mn" -> ":nf" ["label"="1"]
+  ":he" -> ":ef" ["label"="1"]
+  ":da" -> ":ab" ["label"="1"]
+  ":ab" -> ":be" ["label"="1"]
+  ":jk" -> ":kl" ["label"="1"]
+  ":ef" -> ":fj" ["label"="1"]
+  ":ef" -> ":fn" ["label"="1"]
+  ":ad" -> ":dg" ["label"="1"]
+  ":eb" -> ":ba" ["label"="1"]
+  ":fe" -> ":eh" ["label"="1"]
+  ":fe" -> ":eb" ["label"="1"]
+  ":nf" -> ":fe" ["label"="1"]
+  ":gh"
+  ":dg"
+  ":fn"
+  ":kj"
+  ":be"
+  ":ba"
+  ":kl"
+  ":hg"
+  ":jf"
+  ":lk"
+  ":nm"
+  ":fj"
+  ":lm"
+  ":eh"
+  ":ml"
+  ":gd"
+  ":mn"
+  ":he"
+  ":da"
+  ":ab"
+  ":jk"
+  ":ef"
+  ":ad"
+  ":eb"
+  ":fe"
+  ":nf"
+}
