@@ -6,7 +6,8 @@
 
 (def stuck
   [{:id "a" :row 0 :col 0
-    :links [[:se :e]]}
+    :links [[:se :e]]
+    :train :e}
    {:id "b" :row 0 :col 1
     :links [[:w :e]]}
    {:id "c" :row 0 :col 2
@@ -47,7 +48,8 @@
 
 (def figure-eight
   [{:id "a" :row 0 :col 0
-    :links [[:se :e]]}
+    :links [[:se :e]]
+    :train :e}
    {:id "b" :row 0 :col 1
     :links [[:w :se]]}
    {:id "c" :row 0 :col 2

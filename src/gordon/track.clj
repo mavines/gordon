@@ -91,15 +91,27 @@
     (update-y line row)
     (scale-line width-sf height-sf line)))
 
-(defn render-tile [tile width-sf height-sf]
+(defn gradient-color [percent]
+  [(* 255 percent) 0 (* 255 (- 1 percent))])
+
+(defn max-traveled [track]
+  (->> track
+       (map :traveled)
+       (remove nil?)
+       (apply max)))
+
+(defn render-tile [tile width-sf height-sf max-travel]
   (let [{:keys [row col links]} tile
         link-lines (map #(link-line row col %) links)
-        train (:train tile)]
+        train (:train tile)
+        traveled (if (:traveled tile) (:traveled tile) 0)
+        color (gradient-color (/ traveled max-travel))]
+    (println color)
     (q/stroke 0 0 0)
     (doseq [lines (scale width-sf height-sf (hex row col))]
       (apply q/line lines))
     (when train (draw-train row col train width-sf height-sf))
-    (q/stroke 255 0 0)
+    (apply q/stroke color)
     (doseq [line (scale width-sf height-sf link-lines)]
       (apply q/line line))
     (q/text-size 20)
@@ -121,6 +133,7 @@
         col-width (/ width cols)
         row-height (/ height rows)
         width-sf (double (/ col-width base-col-width))
-        height-sf (double (/ row-height base-row-height))]
+        height-sf (double (/ row-height base-row-height))
+        max-travel (max-traveled track)]
     (doseq [tile track]
-      (render-tile tile width-sf height-sf))))
+      (render-tile tile width-sf height-sf max-travel))))
