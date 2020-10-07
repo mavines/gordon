@@ -118,3 +118,21 @@
     :sw (south-west? tile other-tile)
     :se (south-east? tile other-tile)
     :else false))
+
+(defn next-tile-position [track tile out-direction]
+  (condp = out-direction
+    :e (first (filter #(east? tile %) track))
+    :w (first (filter #(west? tile %) track))
+    :ne (first (filter #(north-east? tile %) track))
+    :nw (first (filter #(north-west? tile %) track))
+    :se (first (filter #(south-east? tile %) track))
+    :sw (first (filter #(south-west? tile %) track))))
+
+(defn opposite-entrance [entrance]
+  (condp = entrance
+    :e :w
+    :w :e
+    :nw :se
+    :ne :sw
+    :se :nw
+    :sw :ne))

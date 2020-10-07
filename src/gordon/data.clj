@@ -28,7 +28,8 @@
   [{:id "a" :row 0 :col 0
     :links [[:se :e]]}
    {:id "b" :row 0 :col 1
-    :links [[:w :e]]}
+    :links [[:w :e]]
+    :train :e}
    {:id "c" :row 0 :col 2
     :links [[:w :se] [:w :sw]]}
    {:id "d" :row 1 :col 0

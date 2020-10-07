@@ -7,18 +7,33 @@
             [loom.alg :as lalg]
             [gordon.data :as data]
             [gordon.track :as track]
-            [gordon.graph :as graph]))
+            [gordon.graph :as graph]
+            [gordon.tiles :as tiles]))
 
 
 (defn- render [*track width height]
   (track/render @*track width height))
 
 (defn- setup [*track]
-  (q/frame-rate 30)
+  (q/frame-rate 1)
   *track)
 
-(defn- update-state [state *track]
-  *track)
+(defn- find-train [track]
+  (first (filter :train track)))
+
+(defn- move-train [track]
+  (let [train-tile (find-train track)
+        entrance (:train train-tile)
+        exit (rand-nth (tiles/connected-sides train-tile entrance))
+        next-tile (tiles/next-tile-position track train-tile exit)
+        opposite-entrance (tiles/opposite-entrance exit)]
+    (map #(if (= next-tile %)
+            (assoc % :train opposite-entrance)
+            (dissoc % :train))
+         track)))
+
+(defn- update-state [state]
+  (move-train state))
 
 (defn draw-track [*track width height]
   (q/defsketch gordon
@@ -45,3 +60,12 @@
   ([track opts]
    (-> (track->graph track)
        (uber/viz-graph opts))))
+
+(q/defsketch gordon
+  :title "Train Tracks"
+  :size [800 800]
+  :setup #(setup data/double-loop)
+  :update #(move-train %)
+  :draw #(track/render % 800 800)
+  :features [:keep-on-top]
+  :middleware [m/fun-mode])

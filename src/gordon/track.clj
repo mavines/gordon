@@ -18,6 +18,17 @@
                      :e [175 100]
                      :se [130 175]})
 
+(defn update-x-point [point row col]
+  (let [half-offset (if (odd? row)
+                      (/ base-col-width 2)
+                      0)
+        offset (* col base-col-width)]
+    (update point 0 + offset half-offset)))
+
+(defn update-y-point [point row]
+  (let [offset (* row base-row-height)]
+    (update point 1 + offset)))
+
 (defn update-x [line row col]
   (let [half-offset (if (odd? row)
                       (/ base-col-width 2)
@@ -50,6 +61,13 @@
         (update-x row col)
         (update-y row))))
 
+
+
+(defn scale-point [width-sf height-sf point]
+  (-> point
+      (update 0 * width-sf)
+      (update 1 * height-sf)))
+
 (defn scale-line [width-sf height-sf line]
   (let [scale-x #(* width-sf %)
         scale-y #(* height-sf %)]
@@ -57,8 +75,15 @@
                 (scale-y (second %))]) line)))
 
 (defn scale [width-sf height-sf lines]
-  (let []
-    (map #(scale-line width-sf height-sf %) lines)))
+  (map #(scale-line width-sf height-sf %) lines))
+
+(defn draw-train [row col train-location width-sf height-sf]
+  (let [from-point (-> (train-location link-positions)
+                       (update-x-point row col)
+                       (update-y-point row)
+                       (#(scale-point width-sf height-sf %)))]
+    (q/fill 0 255 0)
+    (apply q/ellipse (conj from-point (* width-sf 50) (* height-sf 50)))))
 
 (defn tile-label [width-sf height-sf row col]
   (as-> [hex-center [200 200]] line
@@ -68,13 +93,15 @@
 
 (defn render-tile [tile width-sf height-sf]
   (let [{:keys [row col links]} tile
-        link-lines (map #(link-line row col %) links)]
+        link-lines (map #(link-line row col %) links)
+        train (:train tile)]
     (q/stroke 0 0 0)
     (doseq [lines (scale width-sf height-sf (hex row col))]
       (apply q/line lines))
+    (when train (draw-train row col train width-sf height-sf))
     (q/stroke 255 0 0)
     (doseq [line (scale width-sf height-sf link-lines)]
-       (apply q/line line))
+      (apply q/line line))
     (q/text-size 20)
     (q/fill 0 0 0)
     (apply q/text (:id tile) (flatten (tile-label width-sf height-sf row col)))))
