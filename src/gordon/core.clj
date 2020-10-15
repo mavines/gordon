@@ -74,8 +74,17 @@
 (q/defsketch heat-map
   :title "Train Tracks"
   :size [800 800]
-  :setup #(setup data/double-loop)
+  :setup #(setup data/big-track)
   :update #(move-train %)
+  :draw #(track/render % 800 800)
+  :features [:keep-on-top]
+  :middleware [m/fun-mode])
+
+#_(q/defsketch just-track
+  :title "Train Tracks"
+  :size [800 800]
+  :setup #(setup data/big-track)
+  :update #(when % data/big-track)
   :draw #(track/render % 800 800)
   :features [:keep-on-top]
   :middleware [m/fun-mode])

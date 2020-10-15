@@ -94,11 +94,16 @@
 (defn gradient-color [percent]
   [(* 255 percent) 0 (* 255 (- 1 percent))])
 
+(defn max-or-1 [collection]
+  (if (not-empty collection)
+    (apply max collection)
+    1))
+
 (defn max-traveled [track]
   (->> track
        (map :traveled)
        (remove nil?)
-       (apply max)))
+       max-or-1))
 
 (defn render-tile [tile width-sf height-sf max-travel]
   (let [{:keys [row col links]} tile
@@ -106,7 +111,6 @@
         train (:train tile)
         traveled (if (:traveled tile) (:traveled tile) 0)
         color (gradient-color (/ traveled max-travel))]
-    (println color)
     (q/stroke 0 0 0)
     (doseq [lines (scale width-sf height-sf (hex row col))]
       (apply q/line lines))
