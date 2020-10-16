@@ -69,11 +69,12 @@
          t track]
     (if (>= i steps)
       t
-      (recur (inc i) (move-train t)))))
+      (recur (inc i) (vec (move-train t))))))
 
-(def traveled (travel data/double-loop 500))
+(def traveled (travel data/big-track 50000))
 
-(q/defsketch heat-map
+
+#_(q/defsketch heat-map
   :title "Train Tracks"
   :size [800 800]
   :setup #(setup data/big-track)
@@ -83,11 +84,11 @@
   :middleware [m/fun-mode])
 
 
-#_(q/defsketch just-track
+(q/defsketch just-track
   :title "Train Tracks"
   :size [800 800]
-  :setup #(setup moved)
-  :update #(when % moved)
+  :setup #(setup traveled)
+  :update #(when % traveled)
   :draw #(track/render % 800 800)
   :features [:keep-on-top]
   :middleware [m/fun-mode])
