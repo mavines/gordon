@@ -15,7 +15,7 @@
   (track/render track width height))
 
 (defn- setup [track]
-  (q/frame-rate 10)
+  (q/frame-rate 100)
   track)
 
 (defn- find-train [track]
@@ -28,17 +28,12 @@
         exit (first (filter #(not= entrance %) track-line))
         next-tile (tiles/next-tile-position track train-tile exit)
         opposite-entrance (tiles/opposite-entrance exit)]
-    (map #(if (= next-tile %)
-            (-> %
-                (assoc :train opposite-entrance)
-                (update :traveled (fnil inc 0)))
-            (dissoc % :train))
-         track)))
-
-(first data/double-loop)
-(->> (tiles/connected-lines {:links [[:w :se] [:w :ne]]} :w)
-     rand-nth
-     (filter #(not= :w %)))
+    (->> track
+         (map #(dissoc % :train))
+         (map #(condp = (:id %)
+                 (:id train-tile) (update-in % [:traveled track-line] (fnil inc 0))
+                 (:id next-tile) (assoc % :train opposite-entrance)
+                 %)))))
 
 
 (defn- update-state [state]
@@ -87,11 +82,12 @@
   :features [:keep-on-top]
   :middleware [m/fun-mode])
 
+
 #_(q/defsketch just-track
   :title "Train Tracks"
   :size [800 800]
-  :setup #(setup data/big-track)
-  :update #(when % data/big-track)
+  :setup #(setup moved)
+  :update #(when % moved)
   :draw #(track/render % 800 800)
   :features [:keep-on-top]
   :middleware [m/fun-mode])

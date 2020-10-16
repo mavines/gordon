@@ -103,7 +103,7 @@
   (let [links (:links tile)]
     (filter #(some #{incoming} %) links)))
 
-#_(defn find-next-link-sides [tile other-tile]
+(defn find-next-link-sides [tile other-tile]
   (let [links (:links tile)
         other-links (:links other-tile)]
     (cond

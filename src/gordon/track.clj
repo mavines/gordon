@@ -61,8 +61,6 @@
         (update-x row col)
         (update-y row))))
 
-
-
 (defn scale-point [width-sf height-sf point]
   (-> point
       (update 0 * width-sf)
@@ -103,24 +101,32 @@
   (->> track
        (map :traveled)
        (remove nil?)
+       (map vals)
+       (flatten)
        max-or-1))
+
+(defn render-link [link tile width-sf height-sf max-travel]
+  (let [traveled (get-in tile [:traveled link] 0)
+        color (gradient-color (/ traveled max-travel))
+        line (->> link
+                  (link-line (:row tile) (:col tile))
+                  (scale-line width-sf height-sf))]
+    (apply q/stroke color)
+    (apply q/line line)))
 
 (defn render-tile [tile width-sf height-sf max-travel]
   (let [{:keys [row col links]} tile
-        link-lines (map #(link-line row col %) links)
-        train (:train tile)
-        traveled (if (:traveled tile) (:traveled tile) 0)
-        color (gradient-color (/ traveled max-travel))]
+        train (:train tile)]
     (q/stroke 0 0 0)
-    (doseq [lines (scale width-sf height-sf (hex row col))]
-      (apply q/line lines))
+    (doseq [hex-line (scale width-sf height-sf (hex row col))]
+      (apply q/line hex-line))
     (when train (draw-train row col train width-sf height-sf))
-    (apply q/stroke color)
-    (doseq [line (scale width-sf height-sf link-lines)]
-      (apply q/line line))
+    (doseq [link links]
+      (render-link link tile width-sf height-sf max-travel))
     (q/text-size 20)
     (q/fill 0 0 0)
     (apply q/text (:id tile) (flatten (tile-label width-sf height-sf row col)))))
+
 
 (defn render [track width height]
   (q/background 255 255 255)
