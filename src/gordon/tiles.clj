@@ -91,13 +91,19 @@
 (defn south-east-link? [links other-links]
   (north-west-link? other-links links))
 
+
+
 (defn connected-sides [tile incoming]
   (let [links (:links tile)]
     (->> (filter #(some #{incoming} %) links)
          (flatten)
          (filter #(not= incoming %)))))
 
-(defn find-next-link-sides [tile other-tile]
+(defn connected-lines [tile incoming]
+  (let [links (:links tile)]
+    (filter #(some #{incoming} %) links)))
+
+#_(defn find-next-link-sides [tile other-tile]
   (let [links (:links tile)
         other-links (:links other-tile)]
     (cond

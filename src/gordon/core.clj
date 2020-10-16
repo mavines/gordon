@@ -24,7 +24,8 @@
 (defn- move-train [track]
   (let [train-tile (find-train track)
         entrance (:train train-tile)
-        exit (rand-nth (tiles/connected-sides train-tile entrance))
+        track-line (rand-nth (tiles/connected-lines train-tile entrance))
+        exit (first (filter #(not= entrance %) track-line))
         next-tile (tiles/next-tile-position track train-tile exit)
         opposite-entrance (tiles/opposite-entrance exit)]
     (map #(if (= next-tile %)
@@ -33,6 +34,12 @@
                 (update :traveled (fnil inc 0)))
             (dissoc % :train))
          track)))
+
+(first data/double-loop)
+(->> (tiles/connected-lines {:links [[:w :se] [:w :ne]]} :w)
+     rand-nth
+     (filter #(not= :w %)))
+
 
 (defn- update-state [state]
   (move-train state))
