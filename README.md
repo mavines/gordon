@@ -57,7 +57,7 @@ Here is the output for a track with an outer loop and a cross section. If you ar
 You can also analyze your track for 'hot spots' that may cause bottlenecks (and arguments).
 | Real Track | Driving | Result |
 :-----------:|:-------:|:------:
-|![](examples/complex.jpg) | ![](examples/complex-heat-map.png) | ![](examples/complex-heat-map.gif)
+|![](examples/complex.jpg) | ![](examples/complex-heat-map.gif)| ![](examples/complex-heat-map.png)
 
 ## License
 
