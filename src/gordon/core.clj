@@ -15,7 +15,7 @@
   (track/render track width height))
 
 (defn- setup [track]
-  (q/frame-rate 100)
+  (q/frame-rate 10)
   track)
 
 (defn- find-train [track]
@@ -74,7 +74,7 @@
 (def traveled (travel data/big-track 50000))
 
 
-#_(q/defsketch heat-map
+(q/defsketch heat-map
   :title "Train Tracks"
   :size [800 800]
   :setup #(setup data/big-track)
