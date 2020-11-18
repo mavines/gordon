@@ -1,26 +1,20 @@
 # Gordon
     [gordon "0.1.0"]
 
-A Clojure library/utility for analyzing the correctness of wooden train track configurations. Often (when you let a child build) the track is designed such that trains cannot reach all points of the track or cannot change directions. The goal of Gordan is to analyze your track for optimal fun.  
-Future improvements include: Usage analysis (are trains running into each other too much?), Simulation (watch your train drive around), and automatic track generation using image recognition.
+A Clojure utility for analyzing the correctness of wooden train track configurations. Often (when you let a child build) the track is designed such that trains cannot reach all points of the track or cannot change directions. The goal of Gordan is to analyze your track for optimal fun.  
+Future improvements include: Usage analysis (are trains running into each other too much?), and automatic track generation using image recognition.
 
 Built using [Ubergraph](https://github.com/Engelberg/ubergraph), [Loom](https://github.com/aysylu/loom) , and [Quil](https://github.com/quil/quil).
 
 ## Usage
 ### Buliding a track
-Clone and fire up ```lein repl```  
-To view a track: ```(draw-track (atom data/double-loop) 500 500)```  
-If you are building a track and want to easily reload it while working on it:  
-``` clojure
-(def new-track [])
-(def *new-track (atom new-track))
-(draw-track *new-track 500 500)
-```
-Edit ```new-track``` and then run ```(reset! *new-track newtrack)``` and your changes will be displayed.
-(Your new-track may need to have some tiles to work, so I recommend copying an existing track in ```gordon.data``` to work from).
+Clone and fire up ```lein repl```
+Open ```src/gordon/core.clj``` and evaluate it.  
+This opens two applets, one showing the train driving the tracks, the other the completed heat map.  
+You can find additional tracks in ```data.clj``` or build your own.
 
 ### Track Analysis
-Once you're happy with you've built you track, turn it into an [Ubergraph](https://github.com/Engelberg/ubergraph):
+Once you're happy with your track, you can turn it into an [Ubergraph](https://github.com/Engelberg/ubergraph):
 ``` clojure 
 (def my-graph (track->graph my-track)
 ```  
@@ -58,6 +52,12 @@ Here is the output for a track with an outer loop and a cross section. If you ar
 |![](examples/stuck-real.png)|![](examples/stuck-train-tracks.png)|![](examples/stuck-train-graph.png)|
 |![](examples/double-loop-real.png)|![](examples/double-loop-tracks.png)|![](examples/double-loop-graph.png)|
 |![](examples/figure-eight-real.png)|![](examples/figure-eight.png)|![](examples/figure-eight-graph.png)|
+
+
+You can also analyze your track for 'hot spots' that may cause bottlenecks (and arguments).
+| Real Track | Driving | Result |
+:-----------:|:-------:|:------:
+|![](examples/complex.jpg) | ![](examples/complex-heat-map.png) | ![](examples/complex-heat-map.gif)
 
 ## License
 

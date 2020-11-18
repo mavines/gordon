@@ -73,8 +73,7 @@
 
 (def traveled (travel data/big-track 50000))
 
-
-(q/defsketch heat-map
+(q/defsketch moving-train-heat
   :title "Train Tracks"
   :size [800 800]
   :setup #(setup data/big-track)
@@ -84,7 +83,7 @@
   :middleware [m/fun-mode])
 
 
-(q/defsketch just-track
+(q/defsketch heat-map
   :title "Train Tracks"
   :size [800 800]
   :setup #(setup traveled)

@@ -111,6 +111,7 @@
     :links [[:ne :se] [:se :e]]}
    {:id "v" :row 2 :col 1
     :links [[:w :e]]}
+
    {:id "g" :row 2 :col 2
     :links [[:w :sw] [:sw :e]]}
    {:id "h" :row 2 :col 3
