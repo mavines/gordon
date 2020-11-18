@@ -8,7 +8,7 @@ Built using [Ubergraph](https://github.com/Engelberg/ubergraph), [Loom](https://
 
 ## Usage
 ### Buliding a track
-Clone and fire up ```lein repl```
+Clone and fire up ```lein repl```  
 Open ```src/gordon/core.clj``` and evaluate it.  
 This opens two applets, one showing the train driving the tracks, the other the completed heat map.  
 You can find additional tracks in ```data.clj``` or build your own.
