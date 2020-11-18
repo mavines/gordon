@@ -26,7 +26,7 @@ Can you change directions?
 
 Can you get everywhere?  
 ``` clojure
-(uber/scc my-graph
+(uber/scc my-graph)
 ```
 Look for having a single component. Multiple components indicates you can get stuck in one direction.
 
